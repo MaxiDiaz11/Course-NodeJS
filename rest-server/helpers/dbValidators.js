@@ -1,5 +1,5 @@
-const Role = require("../models/role");
-const Usuario = require("../models/usuario");
+const { response } = require("express");
+const { Usuario, Categoria, Role, Producto } = require("../models");
 
 const validateRolExist = async (role = "") => {
   const existeRol = await Role.findOne({ role });
@@ -21,8 +21,40 @@ const existUserID = async (id) => {
     throw new Error(`El ID: ${id} no existe`);
   }
 };
+
+const existCategoriaID = async (id) => {
+  const existeCategoria = await Categoria.findById(id);
+  if (!existeCategoria) {
+    throw new Error(`El ID: ${id} no existe`);
+  }
+};
+
+const existProductoID = async (id) => {
+  const existeProducto = await Producto.findById(id);
+  if (!existeProducto) {
+    throw new Error(`El ID: ${id} no existe`);
+  }
+};
+
+const findCategoria = async (categoria) => {
+  let nombre = categoria.toUpperCase();
+
+  const categoriaDB = await Categoria.findOne({
+    nombre,
+  });
+
+  if (categoriaDB) {
+    return categoriaDB;
+  } else {
+    return false;
+  }
+};
+
 module.exports = {
-  validateRolExist,
-  mailExist,
+  existCategoriaID,
+  existProductoID,
   existUserID,
+  findCategoria,
+  mailExist,
+  validateRolExist,
 };

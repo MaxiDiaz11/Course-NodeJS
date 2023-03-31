@@ -8,6 +8,9 @@ class Server {
     this.port = process.env.PORT;
     this.usuariosRoutePath = "/api/usuarios";
     this.authPath = "/api/auth";
+    this.categoriasPath = "/api/categorias";
+    this.productosPath = "/api/productos";
+    this.buscarPath = "/api/buscar";
     //DB
     this.conectarDB();
     //Middlewares
@@ -30,7 +33,10 @@ class Server {
 
   routes() {
     this.app.use(this.authPath, require("../routes/auth"));
+    this.app.use(this.categoriasPath, require("../routes/categorias"));
     this.app.use(this.usuariosRoutePath, require("../routes/usuarios"));
+    this.app.use(this.productosPath, require("../routes/productos"));
+    this.app.use(this.buscarPath, require("../routes/buscar"));
   }
 
   listen() {
