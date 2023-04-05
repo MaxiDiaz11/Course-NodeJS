@@ -50,7 +50,20 @@ const findCategoria = async (categoria) => {
   }
 };
 
+const coleccionesPermitidas = (coleccion = "", coleccionesPermitidas = []) => {
+  const incluida = coleccionesPermitidas.includes(coleccion);
+
+  if (!incluida) {
+    throw new Error(
+      `La colección ${coleccion} no esta permitida, [${coleccionesPermitidas}]`
+    );
+  }
+
+  return true;
+};
+
 module.exports = {
+  coleccionesPermitidas,
   existCategoriaID,
   existProductoID,
   existUserID,
